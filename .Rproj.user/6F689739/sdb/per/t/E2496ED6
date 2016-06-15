@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "library(ggplot2)\n\nhead(mpg)\n\nggplot(mpg, aes(x = displ, y = hwy))+geom_point()\n#or\nggplot(mpg, aes(displ, hwy))+geom_point()\n\n\nggplot(mpg, aes(displ, cty, colour = class))+geom_point()\n#vs\nggplot(mpg, aes(displ, hwy)) + geom_point(aes(colour = \"blue\"))\nggplot(mpg, aes(displ, hwy)) + geom_point(colour = \"blue\")\n\nggplot(mpg,aes(displ,cyl))+\n  geom_point()+\n  facet_wrap(~class)\n\nggplot(mpg,aes(displ,hwy))+\n  geom_point()+\n  geom_smooth()\n#Turn off confidence intervals\nggplot(mpg,aes(displ,hwy))+\n  geom_point()+\n  geom_smooth(se=FALSE)\n\n#Smoothing for n < 1000\nggplot(mpg, aes(displ, hwy)) +\n  geom_point() +\n  geom_smooth(span = 0.2)\n#vs\nggplot(mpg, aes(displ, hwy)) +\n  geom_point() +\n  geom_smooth(span = 1)\n\n#Smoothing for n > 1000\nlibrary(mgcv)\nggplot(mpg, aes(displ, hwy)) +\n  geom_point() +\n  geom_smooth(method = \"gam\", formula = y ~ s(x))\n#vs. linear model\nggplot(mpg, aes(displ, hwy)) +\n  geom_point() +\n  geom_smooth(method = \"lm\")\n#vs. robust fiitng algorithm\nlibrary(MASS)\nggplot(mpg,aes(displ, hwy))+\n  geom_point()+\n  geom_smooth(method = \"rlm\")\n\n#Boxplots and jittering\nggplot(mpg, aes(drv, hwy)) + geom_point()\nggplot(mpg, aes(drv, hwy)) + geom_jitter()\nggplot(mpg, aes(drv, hwy)) + geom_boxplot()\nggplot(mpg, aes(drv, hwy)) + geom_violin()\n\n#Histogram and frequency polygons\nggplot(mpg, aes(hwy)) + geom_histogram(binwidth = 5)\nggplot(mpg, aes(hwy)) + geom_freqpoly(binwidth=5)\nggplot(mpg, aes(hwy)) + geom_density()\n\n\nggplot(mpg, aes(displ, colour = drv))+\n  geom_freqpoly(binwidth = 0.5)\nggplot(mpg, aes(displ, fill = drv)) +\n  geom_histogram(binwidth = 0.5) +\n  facet_wrap(~drv, ncol = 1)\n\n#Bar Charts\nggplot(mpg, aes(manufacturer)) +\n  geom_bar()\n#The above counts values in each category, to plot the value then\n#+ geom_bar(stat = \"identity\") needs to be used - however, better to use\n#+ geom_point()\n\n\n#Time series with line and path plots\nggplot(economics, aes(date, unemploy / pop)) +\n  geom_line()\nggplot(economics, aes(date, uempmed)) +\n  geom_line()\n\nggplot(economics, aes(unemploy / pop, uempmed)) +\n  geom_path() +\n  geom_point()\n\nyear <- function(x) as.POSIXlt(x)$year + 1900\nggplot(economics, aes(unemploy / pop, uempmed)) +\n  geom_path(colour = \"grey50\") +\n  geom_point(aes(colour = year(date)))\n\n#Modifying axes\nggplot(mpg, aes(cty, hwy)) +\n  geom_point(alpha = 1/3)\n# Change axis labels\nggplot(mpg, aes(cty, hwy)) +\n  geom_point(alpha = 1 / 3) +\n  xlab(\"city driving (mpg)\") +\n  ylab(\"highway driving (mpg)\")\n# Remove the axis labels with NULL\nggplot(mpg, aes(cty, hwy)) +\n  geom_point(alpha = 1 / 3) +\n  xlab(NULL) +\n  ylab(NULL)\n\nggplot(mpg, aes(drv, hwy)) +\n  geom_jitter(width = 0.25)\n#Modify axes limits\nggplot(mpg, aes(drv, hwy)) +\n  geom_jitter(width = 0.25) +\n  xlim(\"f\", \"r\") +\n  ylim(20, 30)\n# For continuous scales, use NA to set only one limit\nggplot(mpg, aes(drv, hwy)) +\n  geom_jitter(width = 0.25, na.rm = TRUE) +\n  ylim(NA, 30)\n\n#Output\n#assign plot to variable\np <- ggplot(mpg, aes(displ, hwy, colour = factor(cyl))) +\n  geom_point()\n\nprint(p)\n\nggsave(\"p.png\", width = 5, height = 5)\n\nsaveRDS(p, \"plot.rds\")\nq <- readRDS(\"plot.rds\")\n\nsummary(p)\n",
+    "created" : 1465837070055.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "576869091",
+    "id" : "E2496ED6",
+    "lastKnownWriteTime" : 1466026887,
+    "last_content_update" : 1466026887574,
+    "path" : "C:/Users/joet/Desktop/[CURRENT]/GitHub/ggplot2/Chapter 2.R",
+    "project_path" : "Chapter 2.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
